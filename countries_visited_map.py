@@ -45,14 +45,32 @@ class CountriesVisitedMap():
         self.ax.axis('off')
         self.ax.margins(0)
     
-    def _plot_background(self, column:str, color=BACKGROUND_COLOR):
+    def _plot_background(self, column:str='status', color=BACKGROUND_COLOR):
         """Will draw all the countries where column is NaN"""
         self._gdf[ self._gdf['status'].isna()].plot(ax=self.ax, color=color, edgecolor='white', linewidth=0.4)
     
     def plot(self, color=DEFAULT_COLOR, edgecolor=EDGE_COLOR):
         self._new_plot()
-        self._gdf[ ~self._gdf['status'].isna() ].plot(ax=self.ax, color=color, edgecolor=edgecolor, linewidth=0.4)
-        self._plot_background('status')
+        self._gdf[ ~self._gdf['status'].isna() ].plot(
+            ax=self.ax,
+            color=color,
+            edgecolor=edgecolor,
+            linewidth=0.4
+        )
+        self._plot_background()
+        
+    def plot_status(self, edgecolor=EDGE_COLOR):        
+        self._new_plot()
+        self._gdf.plot(
+            ax=self.ax,
+            column='status',
+            legend=True,
+            legend_kwds={'loc': 'lower left'},
+            edgecolor=edgecolor,
+            linewidth=0.4,
+        )
+
+        self._plot_background()
 
     # gdf.explore(color=gdf['color'], missing_kwds={'color': 'lightgrey'})
     # plt.savefig('sample.png', bbox_inches="tight", pad_inches=0, transparent=True)
