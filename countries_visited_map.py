@@ -130,7 +130,7 @@ class CountriesVisitedMap():
             filepath (str): image filepath
             transparent (bool, optional): Should the background be transparent. Defaults to True.
         """
-        self.fig.savefig(filepath, bbox_inches="tight", pad_inches=0, transparent=transparent)
+        self.fig.savefig(filepath, bbox_inches="tight", pad_inches=0, transparent=transparent, facecolor='white')
         
     
 
