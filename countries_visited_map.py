@@ -2,6 +2,7 @@ import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import matplotlib.ticker as mticker
 
 pd.set_option('display.max_rows', 6)
 
@@ -39,13 +40,13 @@ class CountriesVisitedMap():
     def _new_plot(self, figsize=(10,8)):
         self.fig = plt.figure(figsize=figsize)
         self.ax = self.fig.add_axes([0, 0, 1, 1])
-        self.ax.axis('off')
         self.ax.margins(0)
+        self.ax.axis('off')
     
     
     def _plot_background(self, column:str='status', color=BACKGROUND_COLOR):
         """Will draw all the countries where column is NaN"""
-        self._gdf[ self._gdf['status'].isna()].plot(ax=self.ax, color=color, edgecolor='white', linewidth=0.4)
+        self._gdf[ self._gdf[column].isna()].plot(ax=self.ax, color=color, edgecolor='white', linewidth=0.4)
     
     
     def plot(self, color=DEFAULT_COLOR, edgecolor=EDGE_COLOR, background_color=BACKGROUND_COLOR):
@@ -88,7 +89,28 @@ class CountriesVisitedMap():
             linewidth=0.4,
         )
 
-        self._plot_background()
+        self._plot_background(color=background_color)
+        
+    def plot_timeline(self, cmap='autumn', edgecolor=EDGE_COLOR):
+        self._new_plot()
+        
+        self._gdf.plot(
+            ax=self.ax,
+            column='year_visited',
+            cmap=cmap,
+            legend=True,
+            edgecolor=edgecolor,
+            linewidth=0.4,
+            legend_kwds={
+                'shrink': 0.5,
+            },
+        )
+        
+        # Force the colorbar to show only whole numbers (years)
+        cbar = self.ax.get_figure().get_axes()[-1]
+        cbar.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))  # Ensure whole numbers
+        
+        self._plot_background(column='year_visited')
         
     
 
