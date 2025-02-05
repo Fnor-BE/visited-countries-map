@@ -53,7 +53,7 @@ class CountriesVisitedMap():
         """Plot the map. All the countries are highlighted in the same color.
 
         Args:
-            color (string, optional): Color countries are highlighted with (as recognized by matplotlib). Defaults to DEFAULT_COLOR.
+            color (string, optional): Color countries are highlighted with (as recognized by matplotlib).Defaults to DEFAULT_COLOR.
             edgecolor (string, optional): Color of the borders between countries. Defaults to EDGE_COLOR.
             background_color (string, optional): Color countries not highlighted are displayed in. Defaults to BACKGROUND_COLOR.
         """
@@ -71,9 +71,13 @@ class CountriesVisitedMap():
         """Plot the map with countries in different colors according to the status given to them.
 
         Args:
-            colors (string, optional): Color recognized by matplotlib. Defaults to COLOR_MAP.
-            edgecolor (string, optional): Color of the border between countries. Defaults to EDGE_COLOR.
-            background_color (string, optional): Color countries not highlighted are displayed in. Defaults to BACKGROUND_COLOR.
+            colors (list[string], optional): List of string recognized by matplotlib. 
+                The color will be applied in alphabetical order.
+                Defaults to COLOR_MAP.
+            edgecolor (string, optional): Color of the border between countries.
+                Defaults to EDGE_COLOR.
+            background_color (string, optional): Color countries not highlighted are displayed in.
+                Defaults to BACKGROUND_COLOR.
         """
         self._new_plot()
         
@@ -92,6 +96,12 @@ class CountriesVisitedMap():
         self._plot_background(color=background_color)
         
     def plot_timeline(self, cmap='autumn', edgecolor=EDGE_COLOR):
+        """Plot the timeline of the map. Only uses entries that were supplied a year.
+
+        Args:
+            cmap (str, optional): Valid matplotlib color map. Defaults to 'autumn'.
+            edgecolor (str, optional): Valid matplotlib color. Defaults to EDGE_COLOR.
+        """
         self._new_plot()
         
         self._gdf.plot(
@@ -113,9 +123,14 @@ class CountriesVisitedMap():
         self._plot_background(column='year_visited')
         
     
+    def save(self, filepath:str, transparent=True):
+        """Saves the latest map plotted.
 
-    # gdf.explore(color=gdf['color'], missing_kwds={'color': 'lightgrey'})
-    # plt.savefig('sample.png', bbox_inches="tight", pad_inches=0, transparent=True)
+        Args:
+            filepath (str): image filepath
+            transparent (bool, optional): Should the background be transparent. Defaults to True.
+        """
+        self.fig.savefig(filepath, bbox_inches="tight", pad_inches=0, transparent=transparent)
         
     
 
