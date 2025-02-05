@@ -12,7 +12,7 @@ BACKGROUND_COLOR = '#D3D3D3'
 EDGE_COLOR = 'white'
 COLOR_MAP = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
 
-class CountriesVisitedMap():
+class VisitedCountriesMap():
     
     fig = None
     ax = None
