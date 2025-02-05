@@ -6,8 +6,8 @@ This project requires `GeoPandas` installed to function. The map themselves are 
 
 ## Usage
 ```python
-from countries_visited_map import CountriesVisitedMap
-map = CountriesVisitedMap()
+from visited_countries_map import VisitedCountriesMap
+map = VisitedCountriesMap()
 
 map.add_country('Germany', 1990, status='Lived in')
 map.add_country('Canada', 2014, status='Lived in')
